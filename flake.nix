@@ -39,6 +39,7 @@
             serviceConfig = {
               Type = "simple";
               User = "nobody";
+              AmbientCapabilities = "CAP_NET_ADMIN";
               ExecStart = "${pkg}/bin/wg_exporter";
               Restart = "always";
             };
