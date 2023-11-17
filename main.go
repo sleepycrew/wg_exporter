@@ -17,7 +17,7 @@ var (
 	peersGauge = promauto.NewGaugeVec(prometheus.GaugeOpts{
 		Name: "wg_peers",
 		Help: "The total number of processed events",
-	}, []string{"device_name", "peer_public_key", "peer_allowed_ips"})
+	}, []string{"device_name", "device_public_key", "peer_public_key", "peer_allowed_ips"})
 )
 
 func recordWgPeers() {
@@ -47,7 +47,7 @@ func recordWgPeers() {
 					}
 					peerCount := float64(len(allowedIps))
 
-					peersGauge.WithLabelValues(wgDevice.Name, peer.PublicKey, strings.Join(allowedIps, ",")).Set(peerCount)
+					peersGauge.WithLabelValues(wgDevice.Name, wgDevice.PublicKey.String(), peer.PublicKey, strings.Join(allowedIps, ",")).Set(peerCount)
 				}
 			}
 
